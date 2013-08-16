@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Denizen" default="tests" basedir=".">
+
+	<target name="tests" description="Run all of the tests for the project">
+		<phingcall target="phpunit" />
+	</target>
+
+	<target name="phpunit" description="Run the phpunit tests">
+		<exec executable="${project.basedir}/bin/phpunit" passthru="true" checkreturn="true" escape="false">
+			<arg value="--colors" />
+			<arg value="--verbose" />
+			<arg value="${project.basedir}/tests/" />
+		</exec>
+	</target>
+
+</project>
