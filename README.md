@@ -21,8 +21,8 @@ Below is a list of all of the routes that are provided and the grant type
 --------|--------------|--------------------------------|---
  POST   | /oauth/token | password or client_credentials | Creates a new access token
 
-The /oauth/token route will generate an access token for a single user `password grant`
-or an application `client_credentials grant`. All of the user resources
+The /oauth/token route will generate an access token for a single user `password`
+grant or an application `client_credentials` grant. All of the user resources
 below will require an access token with the specified grant type.
 
 Currently this project only supports the `password` and `client_credentials` grant types.
