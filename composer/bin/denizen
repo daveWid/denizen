@@ -1,0 +1,40 @@
+#!/usr/bin/env php
+<?php
+
+$base = realpath(dirname(dirname($argv[0]))).DIRECTORY_SEPARATOR;
+
+require $base.'vendor/autoload.php';
+
+/** Setup PDO **/
+$db = parse_ini_file($base.'config/database.ini');
+$pdo = new PDO($db['dsn'], $db['user'], $db['password']);
+
+/** Prepare the queries **/
+$sql = file_get_contents($base.'vendor/league/oauth2-server/sql/mysql.sql');
+$queries_league = explode("\n\n", $sql);
+
+$sql = file_get_contents($base.'sql/denizen.sql');
+$queries_denizen = explode("\n\n", $sql);
+
+$queries = array_merge($queries_league, $queries_denizen);
+
+/** Run the Queries **/
+foreach ($queries as $query)
+{
+	$pdo->query($query);
+}
+
+console_log('Database tables are setup');
+
+console_log("----- Client Credentials ----");
+console_log("id: krAKQG20vByjJt40Xi50");
+console_log("secret: LmjghywdeOUXCN9rsEgD7y7k7VfvGxWhbfxsgDLx");
+
+console_log("----- API User -------");
+console_log("email: api@denizen.com");
+console_log("password: youllneverguess");
+
+function console_log($msg)
+{
+	echo $msg."\n";
+}

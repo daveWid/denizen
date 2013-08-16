@@ -21,4 +21,8 @@
 		</exec>
 	</target>
 
+	<target name="setup" description="Run all of the MySQL queries to get setup to go">
+		<exec executable="${project.basedir}/bin/denizen" passthru="true" checkreturn="true" escape="false" />
+	</target>
+
 </project>

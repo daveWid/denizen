@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "210f34ba8ad1299a58aff4648d023adf",
+    "hash": "731e501024fd768b48791118e5ac26a7",
     "packages": [
         {
             "name": "davewid/peyote",

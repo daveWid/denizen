@@ -30,6 +30,10 @@
 		}
 	},
 
+	"bin": [
+		"composer/bin/denizen"
+	],
+
 	"config": {
 		"bin-dir": "bin/"
 	}
