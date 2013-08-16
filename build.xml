@@ -3,6 +3,7 @@
 
 	<target name="tests" description="Run all of the tests for the project">
 		<phingcall target="phpunit" />
+		<phingcall target="bdd" />
 	</target>
 
 	<target name="phpunit" description="Run the phpunit tests">
@@ -10,6 +11,13 @@
 			<arg value="--colors" />
 			<arg value="--verbose" />
 			<arg value="${project.basedir}/tests/" />
+		</exec>
+	</target>
+
+	<target name="bdd" description="Run the BDD tests (using frisby.js)">
+		<exec executable="${project.basedir}/node_modules/jasmine-node/bin/jasmine-node" passthru="true" checkreturn="true" escape="false">
+			<arg value="--color" />
+			<arg value="${project.basedir}/spec/" />
 		</exec>
 	</target>
 

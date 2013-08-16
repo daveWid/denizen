@@ -9,7 +9,11 @@ class OAuth2 extends API
 		$type = $this->app->request()->post('grant_type', 'password');
 
 		$grant = $this->app->getAuthServer()->getGrantType($type);
-		$grant->setVerifyCredentialsCallback(array($this, 'verify'));
+
+		if ($type === 'password')
+		{
+			$grant->setVerifyCredentialsCallback(array($this, 'verify'));
+		}
 
 		$this->noCache();
 
