@@ -24,7 +24,7 @@ class Application extends \Slim\Slim
 	 *
 	 * Set <code>db</code> when creating the application instance.
 	 *
-	 * @return [type] [description]
+	 * @return \PDO
 	 */
 	public function getPDO()
 	{

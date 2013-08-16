@@ -3,8 +3,52 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "4c2edd1b3561fee8a6d83961696f398b",
+    "hash": "210f34ba8ad1299a58aff4648d023adf",
     "packages": [
+        {
+            "name": "davewid/peyote",
+            "version": "0.6.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/daveWid/Peyote.git",
+                "reference": "0.6.3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/daveWid/Peyote/zipball/0.6.3",
+                "reference": "0.6.3",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Peyote": "classes/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dave Widmer",
+                    "email": "dave@davewidmer.net",
+                    "homepage": "http://www.davewidmer.net",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A database query builder for PHP 5.3+",
+            "homepage": "https://github.com/daveWid/Peyote",
+            "keywords": [
+                "database",
+                "mysql",
+                "query builder"
+            ],
+            "time": "2013-08-16 18:05:39"
+        },
         {
             "name": "ircmaxell/password-compat",
             "version": "1.0.3",
