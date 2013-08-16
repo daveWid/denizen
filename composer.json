@@ -1,0 +1,36 @@
+{
+	"name": "davewid/denizen",
+	"description": "User management with OAuth2 should be fun (and required)!",
+	"type": "library",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Dave Widmer",
+			"email": "dave@davewidmer.net",
+			"role": "Developer"
+		}
+	],
+
+	"require": {
+		"php": ">=5.3",
+		"slim/slim": "2.3.*",
+		"league/oauth2-server": "2.1.*",
+		"ircmaxell/password-compat": "1.0.*"
+	},
+
+	"require-dev": {
+		"phpunit/phpunit": "3.7.*",
+		"phing/phing": "2.5.*"
+	},
+
+	"autoload": {
+		"psr-0": {
+			"Denizen": "src/"
+		}
+	},
+
+	"config": {
+		"bin-dir": "bin/"
+	}
+
+}
