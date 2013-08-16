@@ -40,7 +40,7 @@ class Client extends \Peyote\PDO implements \League\OAuth2\Server\Storage\Client
 		$result = $this->runQuery($query);
 		$row = $result->fetch(\PDO::FETCH_ASSOC);
 
-		if ( ! $row);
+		if ( ! $row)
 		{
 			return false;
 		}
