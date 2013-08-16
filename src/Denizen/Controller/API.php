@@ -14,7 +14,7 @@ class API extends \Denizen\Controller
 	{
 		try
 		{
-			$this->app->getServer()->isValid(true);
+			$this->app->getResourceServer()->isValid(true);
 		}
 		catch (\League\OAuth2\Server\Exception\InvalidAccessTokenException $e)
 		{

@@ -21,7 +21,7 @@ class Controller
 	/**
 	 * Initialization function to avoid the dependency injection in the constructor
 	 */
-	public function init(){}
+	protected function init(){}
 
 	/**
 	 * Execute a method of the controller, calling before and after.
