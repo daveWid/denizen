@@ -4,7 +4,6 @@ namespace Denizen;
 
 use \League\OAuth2\Server\Authorization,
 	\League\OAuth2\Server\Resource,
-	\League\OAuth2\Server\Util\Request,
 	\League\OAuth2\Server\Grant\ClientCredentials,
 	\League\OAuth2\Server\Grant\Password;
 
@@ -55,7 +54,7 @@ class Application extends \Slim\Slim
 				new \Denizen\OAuth2\Scope($this->getPDO())
 			);
 
-			$this->serverAuth->setRequest(Request::buildFromGlobals());
+			$this->serverAuth->setRequest(\Denizen\Request::buildFromGlobals());
 
 			$this->serverAuth->addGrantType(new Password($this->serverAuth));
 			$this->serverAuth->addGrantType(new ClientCredentials($this->serverAuth));
@@ -72,7 +71,7 @@ class Application extends \Slim\Slim
 				new \Denizen\OAuth2\Session($this->getPDO())
 			);
 
-			$this->serverResource->setRequest(Request::buildFromGlobals());
+			$this->serverResource->setRequest(\Denizen\Request::buildFromGlobals());
 		}
 
 		return $this->serverResource;
