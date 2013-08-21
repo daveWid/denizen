@@ -54,7 +54,7 @@ class Users extends API
 	{
 		$user = $this->table->get($id);
 
-		if ($user === false)
+		if ($user === null)
 		{
 			$this->sendJSON(array(
 				'error' => "User not found"
