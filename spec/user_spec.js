@@ -13,24 +13,14 @@ frisby.create('OAuth2 Client Credentials Login')
 
 		var token = response.access_token;
 
-/*
- Method | Route        | Grant Type          | Description
---------|--------------|---------------------|---
- GET    | /users       | client_credentials  | Get a list of all users
- GET    | /users/:id   | client_credentials  | Get 1 user by id
- POST   | /users       | client_credentials  | Create a new user
- PUT    | /users/:id   | client_credentials  | Update a user by id
- DELETE | /users/:id   | client_credentials  | Delete a user by id
- */
-
-	/** Testing the for /user endpoints */
+	// Testing the for /user endpoints
 
 		frisby.create('Fetching all users')
 			.get(URL+'/users')
 			.addHeader('Authorization', 'Bearer ' + token)
 			.expectStatus(200)
 			.expectJSONTypes('users.*', {
-				user_id: Number,
+				id: Number,
 				email: String,
 				first_name: String,
 				last_name: String
@@ -42,7 +32,7 @@ frisby.create('OAuth2 Client Credentials Login')
 			.addHeader('Authorization', 'Bearer ' + token)
 			.expectStatus(200)
 			.expectJSONTypes('user', {
-				user_id: Number,
+				id: Number,
 				email: String,
 				first_name: String,
 				last_name: String
@@ -84,14 +74,14 @@ frisby.create('OAuth2 Client Credentials Login')
 			.addHeader('Authorization', 'Bearer ' + token)
 			.expectStatus(201)
 			.expectJSONTypes('user', {
-				user_id: Number,
+				id: Number,
 				email: String,
 				first_name: String,
 				last_name: String
 			})
 			.afterJSON(function(response){
 
-				var id = response.user.user_id;
+				var id = response.user.id;
 
 				frisby.create('Duplicate email returns an error')
 					.post(URL + '/users', {
@@ -120,6 +110,6 @@ frisby.create('OAuth2 Client Credentials Login')
 			})
 		.toss();
 
-	/** End /user **/
+	// /user
 	})
 .toss();

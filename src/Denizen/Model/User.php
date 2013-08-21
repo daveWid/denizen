@@ -4,11 +4,9 @@ namespace Denizen\Model;
 
 class User extends \Peyote\Model
 {
-	public $idProperty = 'user_id';
-
 	public function id()
 	{
-		return $this->offsetGet($this->idProperty);
+		return $this->offsetGet('id');
 	}
 
 	/**

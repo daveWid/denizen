@@ -13,13 +13,6 @@ frisby.create('Valid Password Grant')
 	.afterJSON(function(response){
 
 		var token = response.access_token;
-
-/*
- Method | Route | Grant Type   | Description
---------|-------|--------------|----
- GET    | /me   | password     | Get the users profile
- PUT    | /me   | password     | Update the users profile
- */
 		
 		frisby.create('Update a users profile')
 			.put(URL + '/me', {
@@ -35,7 +28,7 @@ frisby.create('Valid Password Grant')
 					.addHeader('Authorization', 'Bearer ' + token)
 					.expectStatus(200)
 					.expectJSON('user', {
-						user_id: 1
+						id: 1
 					})
 				.toss();
 

@@ -35,13 +35,13 @@ class OAuth2 extends API
 
 	public function verify($user, $password)
 	{
-		$user = $this->app->table('\Denizen\Table\Users')->login($user, $password);
+		$user = $this->app->table('\\Denizen\\Table\\Users')->login($user, $password);
 
 		if (empty($user) === true)
 		{
 			return false;
 		}
 
-		return $user['user_id'];
+		return $user['id'];
 	}
 }

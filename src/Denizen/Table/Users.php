@@ -29,8 +29,8 @@ class Users extends \Peyote\PDO
 	public function get($id)
 	{
 		$query = Peyote::select('users')
-			->columns('user_id', 'email', 'first_name', 'last_name')
-			->where('user_id', '=', $id);
+			->columns('id', 'email', 'first_name', 'last_name')
+			->where('id', '=', $id);
 
 		$result = $this->runQuery($query);
 		return $this->convert($result->fetch(\PDO::FETCH_ASSOC));
@@ -42,8 +42,8 @@ class Users extends \Peyote\PDO
 	public function all()
 	{
 		$query = Peyote::select('users')
-			->columns('user_id', 'email', 'first_name', 'last_name')
-			->orderBy('user_id', 'ASC')
+			->columns('id', 'email', 'first_name', 'last_name')
+			->orderBy('id', 'ASC')
 			->limit(20);
 
 		$result = $this->runQuery($query);
@@ -112,7 +112,7 @@ class Users extends \Peyote\PDO
 			$this->runQuery($query);
 		}
 
-		$model = $this->get($model->get('user_id'));
+		$model = $this->get($model->get('id'));
 	}
 
 	/**
@@ -121,7 +121,7 @@ class Users extends \Peyote\PDO
 	 */
 	public function delete($id)
 	{
-		$query = Peyote::delete('users')->where('user_id', '=', $id);
+		$query = Peyote::delete('users')->where('id', '=', $id);
 		$result = $this->runQuery($query);
 
 		return $result->rowCount();
@@ -154,17 +154,17 @@ class Users extends \Peyote\PDO
 	/**
 	 * Do some data conversion on a single row.
 	 *
-	 * @param  array  $data The data to convert
+	 * @param  mixed  $data The data to convert
 	 * @return array
 	 */
-	public function convert(array $data = null)
+	public function convert($data = null)
 	{
 		if ( ! $data)
 		{
 			return null;
 		}
 
-		$data['user_id'] = (int) $data['user_id'];
+		$data['id'] = (int) $data['id'];
 		$model = new \Denizen\Model\User($data);
 		return $model->reset();
 	}
