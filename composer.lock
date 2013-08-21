@@ -3,24 +3,29 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "731e501024fd768b48791118e5ac26a7",
+    "hash": "3a158fc5900e84f4b12f189ee4e4bc89",
     "packages": [
         {
             "name": "davewid/peyote",
-            "version": "0.6.3",
+            "version": "0.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/daveWid/Peyote.git",
-                "reference": "0.6.3"
+                "reference": "b558b3993aa9c40badbeee08c781228dfc37cb28"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/daveWid/Peyote/zipball/0.6.3",
-                "reference": "0.6.3",
+                "url": "https://api.github.com/repos/daveWid/Peyote/zipball/b558b3993aa9c40badbeee08c781228dfc37cb28",
+                "reference": "b558b3993aa9c40badbeee08c781228dfc37cb28",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3"
+            },
+            "require-dev": {
+                "phing/phing": "2.6.*",
+                "phpdocumentor/phpdocumentor": "2.0.*",
+                "phpunit/phpunit": "3.7.*"
             },
             "type": "library",
             "autoload": {
@@ -47,7 +52,7 @@
                 "mysql",
                 "query builder"
             ],
-            "time": "2013-08-16 18:05:39"
+            "time": "2013-08-21 15:15:39"
         },
         {
             "name": "ircmaxell/password-compat",
