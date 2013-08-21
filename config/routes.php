@@ -31,3 +31,12 @@ $app->put('/users/:id', function($id) use ($app){
 $app->delete('/users/:id', function($id) use ($app){
 	$app->controller('\\Denizen\\Controller\\Users')->execute('delete', $id);
 });
+
+/** Profile **/
+$app->get('/me', function() use ($app){
+	$app->controller('\\Denizen\\Controller\\Profile')->execute('fetch');
+});
+
+$app->put('/me', function() use ($app){
+	$app->controller('\\Denizen\\Controller\\Profile')->execute('update');
+});
