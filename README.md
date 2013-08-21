@@ -56,10 +56,10 @@ Which leads us to...
 
 ### Password Management
 
-| Method | Route           | Grant Type    | Description
-|--------|-----------------|---------------|----
-| PUT    | /password       | password      | Change the password
-| POST   | /password/token | password      | Generate an access token used to update the password
+ Method | Route           | Grant Type         | Description
+--------|-----------------|--------------------|----
+ PUT    | /password       | client_credentials | Change the password
+ POST   | /password/token | client_credentials | Generate an access token used to update the password
 
 
 ## Contributing

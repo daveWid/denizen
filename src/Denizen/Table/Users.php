@@ -85,7 +85,7 @@ class Users extends \Peyote\PDO
 	{
 		$data = array(
 			'email' => $model->get('email'),
-			'password' => password_hash($model->get('password'), \PASSWORD_BCRYPT, array('cost' => 12)),
+			'password' => $this->hash($model->get('password')),
 			'first_name' => $model->get('first_name'),
 			'last_name' => $model->get('last_name')
 		);
@@ -113,6 +113,24 @@ class Users extends \Peyote\PDO
 		}
 
 		$model = $this->get($model->get('id'));
+	}
+
+	/**
+	 * @param  \Denizen\Model\NewUser $model  A "new user" model
+	 * @return boolean
+	 */
+	public function updatePassword($model)
+	{
+		$data = array(
+			'password' => $this->hash($model->get('password'))
+		);
+
+		$query = Peyote::update('users')
+			->set($data)
+			->where('id', '=', $model->get('id'));
+
+		$result = $this->runQuery($query);
+		return $result !== false;
 	}
 
 	/**
@@ -167,6 +185,11 @@ class Users extends \Peyote\PDO
 		$data['id'] = (int) $data['id'];
 		$model = new \Denizen\Model\User($data);
 		return $model->reset();
+	}
+
+	private function hash($password)
+	{
+		return password_hash($password, \PASSWORD_BCRYPT, array('cost' => 12));
 	}
 
 }

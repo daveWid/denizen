@@ -4,14 +4,17 @@
     $app is the application variable
     ================================= **/
 
-/** OAuth **/
-
+/** ============
+    OAuth
+    ============ **/
 $app->post('/oauth/token', function() use ($app){
 	$app->controller('\\Denizen\\Controller\\OAuth2')->execute('token');
 });
 
-/** Users **/
 
+/** =============
+    Users
+    ============= **/
 $app->get('/users', function() use ($app){
 	$app->controller('\\Denizen\\Controller\\Users')->execute('getAll');
 });
@@ -32,11 +35,26 @@ $app->delete('/users/:id', function($id) use ($app){
 	$app->controller('\\Denizen\\Controller\\Users')->execute('delete', $id);
 });
 
-/** Profile **/
+
+/** ==============
+    Profile
+    ============== **/
 $app->get('/me', function() use ($app){
 	$app->controller('\\Denizen\\Controller\\Profile')->execute('fetch');
 });
 
 $app->put('/me', function() use ($app){
 	$app->controller('\\Denizen\\Controller\\Profile')->execute('update');
+});
+
+
+/** =============
+    Passwords
+    ============= **/
+$app->put('/password', function() use ($app){
+	$app->controller('\\Denizen\\Controller\\Password')->execute('change');
+});
+
+$app->post('/password/token', function() use ($app){
+	$app->controller('\\Denizen\\Controller\\Password')->execute('createToken');
 });
