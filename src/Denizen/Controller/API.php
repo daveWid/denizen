@@ -21,8 +21,6 @@ class API extends \Denizen\Controller
 			$this->sendJSON(array(
 				'error' => $e->getMessage()
 			), 403);
-
-			$this->app->stop();
 		}
 	}
 
@@ -38,6 +36,8 @@ class API extends \Denizen\Controller
 		$response['Content-Type'] = "application/json;charset=utf-8";
 		$response->setStatus($status);
 		$response->body(json_encode($data));
+
+		$this->app->stop();
 	}
 
 	/**
@@ -48,6 +48,23 @@ class API extends \Denizen\Controller
 		$response = $this->app->response();
 		$response['Cache-Control'] = 'no-store';
 		$response['Pragma'] = 'no-cache';
+	}
+
+	/**
+	 * Runs validation on the model.
+	 * If any errors are present, then the error response is sent immediately.
+	 *
+	 * @param  \Peyote\Model $model  The model to validate
+	 */
+	protected function validate($model)
+	{
+		$errors = $model->validate();
+		if ( ! empty($errors))
+		{
+			$this->sendJSON(array(
+				'errors' => $errors
+			), 400);
+		}
 	}
 
 }

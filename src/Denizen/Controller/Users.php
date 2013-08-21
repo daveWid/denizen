@@ -5,6 +5,7 @@ namespace Denizen\Controller;
 class Users extends API
 {
 	protected $client;
+	protected $table;
 
 	/**
 	 * Make sure we have a valid client_credentials token.
@@ -13,31 +14,65 @@ class Users extends API
 	{
 		$this->checkToken();
 		$this->client = $this->app->getResourceServer()->getClientId();
+		$this->table = $this->app->table('\\Denizen\\Table\\Users');
 	}
 
 	public function getAll()
 	{
-		var_dump($this->client);
+		$users = $this->table->all();
+		$this->sendJSON(array('users' => $users->toArray()));
 	}
 
-	public function getOne()
+	public function getOne($id)
 	{
-
+		$user = $this->table->get($id);
+		$this->sendJSON(array('user' => $user->toArray()));
 	}
 
 	public function create()
 	{
+		$data = $this->app->request->post();
+		$user = new \Denizen\Model\NewUser($data);
 
+		$this->validate($user);
+
+		try {
+			$this->table->save($user);
+
+			$this->sendJSON(array(
+				'user' => $user->toArray()
+			), 201);
+		} catch(\PDOException $e) {
+			// Only error at this point is a duplicate email address...
+			$this->sendJSON(array(
+				'errors' => array('email|unique')
+			), 400);
+		}
 	}
 
-	public function update()
+	public function update($id)
 	{
+		$user = $this->table->get($id);
 
+		if ($user === false)
+		{
+			$this->sendJSON(array(
+				'error' => "User not found"
+			), 404);
+		}
+
+		$user->set($this->app->request->put());
+
+		$this->validate($user);
+		$this->table->save($user);
+
+		$this->sendJSON(array('user' => $user->toArray()), 200);
 	}
 
-	public function delete()
+	public function delete($id)
 	{
-
+		$this->table->delete($id);
+		$this->sendJSON(array(), 200);
 	}
 
 }

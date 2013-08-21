@@ -11,6 +11,8 @@ frisby.create('OAuth2 Client Credentials Login')
 	.expectStatus(200)
 	.afterJSON(function(response) {
 
+		var token = response.access_token;
+
 /*
  Method | Route        | Grant Type          | Description
 --------|--------------|---------------------|---
@@ -25,19 +27,92 @@ frisby.create('OAuth2 Client Credentials Login')
 
 		frisby.create('Fetching all users')
 			.get(URL+'/users')
-			.addHeader('Authorization', 'Bearer ' + response.access_token)
+			.addHeader('Authorization', 'Bearer ' + token)
 			.expectStatus(200)
-			.inspectJSON()
-			/**\/
-			.expectJSON({
-				user: {
-					user_id: Number,
-					email: String,
-					first_name: String,
-					last_name: String
-				}
+			.expectJSONTypes('users.*', {
+				user_id: Number,
+				email: String,
+				first_name: String,
+				last_name: String
 			})
-			/**/
+		.toss();
+
+		frisby.create('Fetching 1 user')
+			.get(URL+'/users/1')
+			.addHeader('Authorization', 'Bearer ' + token)
+			.expectStatus(200)
+			.expectJSONTypes('user', {
+				user_id: Number,
+				email: String,
+				first_name: String,
+				last_name: String
+			})
+		.toss();
+
+		frisby.create('Updating user information')
+			.put(URL+'/users/1', {
+				first_name: 'Just',
+				last_name: 'Changed',
+				bunch: 'ofjunk',
+				will: 'getcutout...'
+			})
+			.addHeader('Authorization', 'Bearer ' + token)
+			.expectStatus(200)
+			.expectJSON('user', {
+				first_name: 'Just',
+				last_name: 'Changed'
+			})
+		.toss();
+
+		frisby.create("Create user with invalid data returns errors")
+			.post(URL + '/users', {})
+			.addHeader('Authorization', 'Bearer ' + token)
+			.expectStatus(400)
+			.expectJSONTypes({
+				errors: Array
+			})
+		.toss();
+
+		frisby.create('Create a user')
+			.post(URL+'/users', {
+				first_name: "New",
+				last_name: "User",
+				email: "just@atest.com",
+				password: 'test1234',
+				confirm_password: 'test1234'
+			})
+			.addHeader('Authorization', 'Bearer ' + token)
+			.expectStatus(201)
+			.expectJSONTypes('user', {
+				user_id: Number,
+				email: String,
+				first_name: String,
+				last_name: String
+			})
+			.afterJSON(function(response){
+
+				frisby.create('Duplicate email returns an error')
+					.post(URL + 'users', {
+						first_name: response.user.first_name,
+						last_name: response.user.last_name,
+						email: response.user.email,
+						password: 'iforgotmyoldpassword',
+						confirm_password: 'iforgotmyoldpassword'
+					})
+					.addHeader('Authorization', 'Bearer ' + token)
+					.expectStatus(400)
+					.expectJSON({
+						errors: ['email|unique']
+					})
+				.toss();
+
+				frisby.create('Delete a user')
+					.delete(URL + '/users/' + response.user.user_id)
+					.addHeader('Authorization', 'Bearer ' + token)
+					.expectStatus(200)
+				.toss();
+
+			})
 		.toss();
 
 	/** End /user **/
