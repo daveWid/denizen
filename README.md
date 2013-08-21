@@ -7,7 +7,7 @@ paired with [OAuth2 Server](https://github.com/php-loep/oauth2-server).
 
 ## OAuth2?
 
-Ya, it's pretty sweet and if you are using it to secure your api you should be.
+Ya, it's pretty sweet and if you aren't using it to secure your API you should be.
 
 If you want to learn more about it please visit the [offical site](http://oauth.net/2/).
 

@@ -91,8 +91,10 @@ frisby.create('OAuth2 Client Credentials Login')
 			})
 			.afterJSON(function(response){
 
+				var id = response.user.user_id;
+
 				frisby.create('Duplicate email returns an error')
-					.post(URL + 'users', {
+					.post(URL + '/users', {
 						first_name: response.user.first_name,
 						last_name: response.user.last_name,
 						email: response.user.email,
@@ -104,12 +106,15 @@ frisby.create('OAuth2 Client Credentials Login')
 					.expectJSON({
 						errors: ['email|unique']
 					})
-				.toss();
+					.afterJSON(function(response){
 
-				frisby.create('Delete a user')
-					.delete(URL + '/users/' + response.user.user_id)
-					.addHeader('Authorization', 'Bearer ' + token)
-					.expectStatus(200)
+						frisby.create('Delete a user')
+							.delete(URL + '/users/' + id)
+							.addHeader('Authorization', 'Bearer ' + token)
+							.expectStatus(200)
+						.toss();
+
+					})
 				.toss();
 
 			})

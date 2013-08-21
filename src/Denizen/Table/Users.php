@@ -121,7 +121,7 @@ class Users extends \Peyote\PDO
 	 */
 	public function delete($id)
 	{
-		$query = Peyote::delete($id)->where('user_id', '=', $id);
+		$query = Peyote::delete('users')->where('user_id', '=', $id);
 		$result = $this->runQuery($query);
 
 		return $result->rowCount();
