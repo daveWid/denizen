@@ -35,7 +35,11 @@ class API extends \Denizen\Controller
 		$response = $this->app->response();
 		$response['Content-Type'] = "application/json;charset=utf-8";
 		$response->setStatus($status);
-		$response->body(json_encode($data));
+
+		if ( ! empty($data))
+		{
+			$response->body(json_encode($data));
+		}
 
 		$this->app->stop();
 	}
