@@ -54,7 +54,7 @@ class Application extends \Slim\Slim
 				new \Denizen\OAuth2\Scope($this->getPDO())
 			);
 
-			$this->serverAuth->setRequest(\Denizen\Request::buildFromGlobals());
+			$this->serverAuth->setRequest(\Denizen\Request::buildFromSlim($this->request));
 
 			$this->serverAuth->addGrantType(new Password($this->serverAuth));
 			$this->serverAuth->addGrantType(new ClientCredentials($this->serverAuth));
@@ -71,7 +71,7 @@ class Application extends \Slim\Slim
 				new \Denizen\OAuth2\Session($this->getPDO())
 			);
 
-			$this->serverResource->setRequest(\Denizen\Request::buildFromGlobals());
+			$this->serverResource->setRequest(\Denizen\Request::buildFromSlim($this->request));
 		}
 
 		return $this->serverResource;
