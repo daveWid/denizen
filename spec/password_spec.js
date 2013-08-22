@@ -1,7 +1,7 @@
 var frisby = require('frisby'),
 	URL = "http://denizen.dev";
 
-frisby.create('Valid Password Grant')
+frisby.create('Valid Client Credentials Grant')
 	.post(URL+'/oauth/token', {
 		client_id: "krAKQG20vByjJt40Xi50",
 		client_secret: "LmjghywdeOUXCN9rsEgD7y7k7VfvGxWhbfxsgDLx",
@@ -11,13 +11,6 @@ frisby.create('Valid Password Grant')
 	.afterJSON(function(response){
 
 		var token = response.access_token;
-
-/*
- Method | Route           | Grant Type         | Description
---------|-----------------|--------------------|----
- PUT    | /password       | client_credentials | Change the password
- POST   | /password/token | client_credentials | Generate an access token used to update the password
- */
 
 		frisby.create('Generate a password token')
 			.post(URL + '/password/token', {
