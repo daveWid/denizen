@@ -19,16 +19,15 @@ class Password extends API
 
 	public function change()
 	{
-		$data = $this->app->request->put();
-
-		if ( ! isset($data['password_token']))
+		$pw_token = $this->app->request->put('password_token', false);
+		if ($pw_token === false)
 		{
 			$this->sendJSON(array(
 				'errors' => array('password_token|required') 
 			), 400);
 		}
 
-		$token = $this->table->fetchByToken($data['password_token']);
+		$token = $this->table->fetchByToken($pw_token);
 
 		if ($token === null)
 		{
@@ -42,8 +41,8 @@ class Password extends API
 
 		$user = new \Denizen\Model\NewUser($user->toArray());
 		$user->set(array(
-			'password' => $data['password'],
-			'confirm_password' => $data['confirm_password']
+			'password' => $this->app->request->put('password'),
+			'confirm_password' => $this->app->request->put('confirm_password')
 		));
 
 		$errors = $user->validate();
@@ -60,16 +59,18 @@ class Password extends API
 
 	public function createToken()
 	{
-		$email = $this->app->request->post('email');
+		$email = $this->app->request->post('email', false);
+		if ($email === false)
+		{
+			$this->sendJSON(array('errors' => array('email|required')), 400);
+		}
 
 		$user_table = $this->app->table('\\Denizen\\Table\\Users');
 		$user = $user_table->fetchByEmail($email);
 
 		if ($user === null)
 		{
-			$this->sendJSON(array(
-				'errors' => array('email|exists')
-			), 400);
+			$this->sendJSON(array('errors' => array('email|exists')), 400);
 		}
 
 		$token = $this->table->create($user->id);

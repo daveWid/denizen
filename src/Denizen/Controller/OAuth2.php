@@ -6,8 +6,7 @@ class OAuth2 extends API
 {
 	public function token()
 	{
-		$type = $this->app->request()->post('grant_type', 'password');
-
+		$type = $this->app->request->post('grant_type', 'password');
 		$grant = $this->app->getAuthServer()->getGrantType($type);
 
 		if ($type === 'password')
